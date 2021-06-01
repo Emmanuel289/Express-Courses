@@ -79,7 +79,7 @@ app.post('/api/courses', (req, res) =>{
     return res.status(201).send(course);
 });
 
-//Update a course
+//Update an existing course
 
 app.put('/api/courses/:id', (req, res)=>{
     //Lookup a course. if it does not exist, return a 404 error
@@ -107,11 +107,30 @@ app.put('/api/courses/:id', (req, res)=>{
 
     course.name = body.name;
 
-    return res.status(301).send(course);
+    return res.status(201).send(course);
 
 });
 
-// Validation handler
+//Delete a course
+
+app.delete('/api/courses/:id', (req, res) =>{
+
+    let { id } = req.params;
+
+    let course = courses.find(c => c.id === parseInt(id));
+
+    if (!course){
+
+        return res.status(404).send('The course with the given ID was not found');
+    }
+
+    const index = courses.indexOf(course);  // get the index of the course in courses list
+
+    courses.splice(index, 1); // remove the course
+    return res.send(course);
+});
+
+// Handle validation of input
 
 function validator(course) {
 
