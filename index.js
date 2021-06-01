@@ -57,17 +57,9 @@ app.get('/api/courses/:id', (req, res) =>{
 
 app.post('/api/courses', (req, res) =>{
 
-    // Define the schema for a post request
-
-    const schema = Joi.object({
-
-        name : Joi.string().min(3).required() // name is required and should be a string of minimum length 3.
-
-    });
-
     
     // Validate client input with the schema
-    const {error, value} = schema.validate(req.body);
+    const { error } = validator(req.body);
 
     if(error){
 
@@ -79,7 +71,7 @@ app.post('/api/courses', (req, res) =>{
 
         id: courses.length + 1,
 
-        name: name 
+        name: req.body.name 
     };
 
     courses.push(course) // Add the  new course to the list of courses
@@ -87,10 +79,57 @@ app.post('/api/courses', (req, res) =>{
     return res.status(201).send(course);
 });
 
+//Update a course
+
+app.put('/api/courses/:id', (req, res)=>{
+    //Lookup a course. if it does not exist, return a 404 error
+
+    let { id } = req.params; 
+
+    let body = req.body;
+    const course = courses.find(c => c.id === parseInt(id));
+
+    if (!course){
+
+        return res.status(404).send(`The course with the given ID was not found`);
+    }
+
+    //Validate request body
+
+    const { error } = validator(body);
+
+    if(error){
+
+        return res.status(400).send(error.details[0].message);
+    }
+
+    //Update the course 
+
+    course.name = body.name;
+
+    return res.status(301).send(course);
+
+});
+
+// Validation handler
+
+function validator(course) {
+
+    const schema = Joi.object({
+
+        name : Joi.string().min(3).required()
+    });
+    
+    return schema.validate(course);
+}
+
+
 // Listen for connections to the server
 
 app.listen(port, () =>{
 
     console.log(`Listening on port ${port}...`);
 })
+
+
 
