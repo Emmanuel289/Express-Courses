@@ -57,14 +57,23 @@ app.get('/api/courses/:id', (req, res) =>{
 
 app.post('/api/courses', (req, res) =>{
 
-    let {name} = req.body;
+    // Define the schema for a post request
 
-    // Input validation
+    const schema = Joi.object({
 
-    if (!name){
+        name : Joi.string().min(3).required() // name is required and should be a string of minimum length 3.
 
-        return res.status(400).send('Name is required');
-    }
+    });
+
+    
+    // Validate client input with the schema
+    const {error, value} = schema.validate(req.body);
+
+    if(error){
+
+        return res.status(400).send(error.details[0].message);
+    };
+
 
     const course = {
 
