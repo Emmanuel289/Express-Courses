@@ -1,113 +1,113 @@
 const express = require('express');
+const Joi = require('joi');
 
 const router = express.Router();
 
 module.exports = router;
 
+// local copy of courses. To be moved to database
+const courses = [
+    {id: 1, name: 'data structures and algorithms'},
+    {id: 2, name: 'operating systems'}, 
+    {id: 3, name:  'systems design'}
+];
 
-// Return a specific course using its id as the query parameter
+
+// Get the list of all the courses
+
+router.get('/', (req, res) =>{
+
+    return res.send(courses);
+})
+
+// Get a course with a given id
 
 router.get('/:id', (req, res) =>{
 
     let { id } = req.params;
 
-    const course = courses.find((course) => course.id === parseInt(id));
-
-    
-
-    if (!course){
-
-        return res.status(404).send('The course with the given ID was not found.');
-    }
-
-    return res.status(200).send(course);
-});
-
-// Post a new course 
-
-router.post('/', (req, res) =>{
-
-    
-    // Validate client input with the schema
-    const { error } = validator(req.body);
-
-    if(error){
-
-        return res.status(400).send(error.details[0].message);
-    };
-
-
-    const course = {
-
-        id: courses.length + 1,
-
-        name: req.body.name 
-    };
-
-    courses.push(course) // Add the  new course to the list of courses
-
-    return res.status(201).send(course);
-});
-
-//Update an existing course
-
-router.put('/:id', (req, res)=>{
-    //Lookup a course. if it does not exist, return a 404 error
-
-    let { id } = req.params; 
-
-    let body = req.body;
     const course = courses.find(c => c.id === parseInt(id));
 
     if (!course){
 
-        return res.status(404).send(`The course with the given ID was not found`);
-    }
+        return res.send('Course is not available at this time');
 
-    //Validate request body
 
-    const { error } = validator(body);
+    };
 
-    if(error){
+    
 
-        return res.status(400).send(error.details[0].message);
-    }
+    return res.send(course);
 
-    //Update the course 
-
-    course.name = body.name;
-
-    return res.status(201).send(course);
 
 });
 
-//Delete a course
+
+// Add a new course to the list of courses
+
+router.post('/', (req, res) =>{
+
+    const schema = new Joi.object({
+
+        id : Joi.number(),
+
+        name: Joi.string().min(3).required(),
+    });
+
+    const new_course = {id: courses.length + 1,  name: 'database management systems'};
+    const {error} = schema.validate(new_course);
+
+
+    if (error) return res.send('Course name is required');
+
+    courses.push(new_course);  
+
+    return res.send(new_course);
+
+});
+
+//Update an existing course with a given id
+
+router.patch('/:id', (req, res) => {
+
+    let { id } = req.params;
+
+    if (!id) return res.send('Course with the given ID is not available');
+
+
+    const course = courses.find(c => c.id === parseInt(id));
+
+    course.name = 'A new course';
+
+    return res.send(course);
+
+
+})
+
+
+//Delete a course with a given id
 
 router.delete('/:id', (req, res) =>{
 
     let { id } = req.params;
 
-    let course = courses.find(c => c.id === parseInt(id));
+    if (!id) return res.send('Course with the given ID does not exist');
 
-    if (!course){
+    const course = courses.find(c => c.id === parseInt(id));
 
-        return res.status(404).send('The course with the given ID was not found');
-    }
+    const index = courses.indexOf(course);
 
-    const index = courses.indexOf(course);  // get the index of the course in courses list
+    if(!index) return res.send('Course with the given ID does not exist');
 
-    courses.splice(index, 1); // remove the course
-    return res.send(course);
+    
+
+    courses.splice(index,1);
+
+    res.send(course);
+
+
 });
 
-// Handle validation of input
+module.exports = router;
 
-function validator(course) {
 
-    const schema = Joi.object({
-
-        name : Joi.string().min(3).required()
-    });
-    
-    return schema.validate(course);
-}
