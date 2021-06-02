@@ -1,14 +1,25 @@
+require('dotenv').config();
 const express = require('express'); // import the Express module
 
 const Joi = require('joi'); // handle input validation
 
 const app = express(); // create an express application
 
+const mongoose = require('mongoose'); // client for interacting with the MongodB database
+
+// Connect to the database
+mongoose.connect(process.env.DATABASE_URL, {useNewUrlParser: true, useUnifiedTopology: true}); 
+
+db = mongoose.connection;
+
+db.on('error', (error) => console.error(error));
+db.once('open', () => console.log('Connected to MongoDB Database'));
+
 const json = express.json()  // middleware for parsing json data
 
 
 
-const port = process.env.port || 3000;  // read the value of the environment variable for port if it is set a default value of 3000.
+const port = process.env.PORT || 3000;  // read the value of the environment variable for port if it is set a default value of 3000.
 
 const courses = [
     {id: 1, name: 'data structures and algorithms'},
