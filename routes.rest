@@ -1,0 +1,2 @@
+
+PUT  http://localhost:5000/courses/3
