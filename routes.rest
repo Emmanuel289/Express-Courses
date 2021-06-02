@@ -1,2 +1,29 @@
+GET http://localhost:5000/courses
 
-PUT  http://localhost:5000/courses/3
+###
+
+GET http://localhost:5000/courses/60b7aa65cdc61c14386cf759
+
+###
+
+POST http://localhost:5000/courses
+Content-Type: application/json
+
+{
+    "name": "operating systems"
+}
+
+###
+
+DELETE http://localhost:5000/courses/60b7aa65cdc61c14386cf759
+
+
+###
+PUT http://localhost:5000/courses/60b7b9ab8e159b278431d7a8
+
+Content-Type: application/json
+
+{
+
+    "name": "systems design"
+}
