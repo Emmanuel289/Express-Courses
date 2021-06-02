@@ -21,16 +21,28 @@ const json = express.json()  // middleware for parsing json data
 
 const port = process.env.PORT || 3000;  // read the value of the environment variable for port if it is set a default value of 3000.
 
+
+const coursesRouter = require('./routes/courses'); // route for courses
 const courses = [
     {id: 1, name: 'data structures and algorithms'},
     {id: 2, name: 'operating systems'}, 
     {id: 3, name:  'systems design'}
 ];
 
-
+//Middleware
 app.use(json);
 
-// Respond to a GET request at the root endpoint with a hello message
+app.use('/courses',coursesRouter);
+
+
+// Listen for connections to the server
+
+app.listen(port, () =>{
+
+    console.log(`Listening on port ${port}...`);
+})
+
+/** Respond to a GET request at the root endpoint with a hello message
 
 app.get('/', (req, res) =>{
 
@@ -152,14 +164,10 @@ function validator(course) {
     
     return schema.validate(course);
 }
+**/
 
 
-// Listen for connections to the server
 
-app.listen(port, () =>{
-
-    console.log(`Listening on port ${port}...`);
-})
 
 
 
