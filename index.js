@@ -24,11 +24,7 @@ const port = process.env.PORT || 3000;  // read the value of the environment var
 module.exports = port;
 
 const coursesRouter = require('./routes/courses'); // route for courses
-const courses = [
-    {id: 1, name: 'data structures and algorithms'},
-    {id: 2, name: 'operating systems'}, 
-    {id: 3, name:  'systems design'}
-];
+
 
 //Middleware
 app.use(json);
