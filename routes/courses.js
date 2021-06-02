@@ -3,41 +3,36 @@ const Joi = require('joi');
 
 const router = express.Router();
 
-module.exports = router;
+const Course = require('../models/course');
 
-// local copy of courses. To be moved to database
-const courses = [
-    {id: 1, name: 'data structures and algorithms'},
-    {id: 2, name: 'operating systems'}, 
-    {id: 3, name:  'systems design'}
-];
+module.exports = router;
 
 
 // Get the list of all the courses
 
-router.get('/', (req, res) =>{
+router.get('/', async (req, res) =>{
 
-    return res.send(courses);
-})
+    try{
+
+        const courses = await Course.find();
+
+        return res.status(200).send(courses);
+
+
+    } catch(err){
+
+        return res.status(500).send({message: err.message});
+
+    }
+
+
+});
 
 // Get a course with a given id
 
-router.get('/:id', (req, res) =>{
-
-    let { id } = req.params;
-
-    const course = courses.find(c => c.id === parseInt(id));
-
-    if (!course){
-
-        return res.send('Course is not available at this time');
-
-
-    };
-
+router.get('/:id', getCourse, (req, res) =>{
     
-
-    return res.send(course);
+    return res.send(`The course is ${res.course}`);
 
 
 });
@@ -45,68 +40,105 @@ router.get('/:id', (req, res) =>{
 
 // Add a new course to the list of courses
 
-router.post('/', (req, res) =>{
+router.post('/', async (req, res) =>{
 
-    const schema = new Joi.object({
+    const course = new Course({
 
-        id : Joi.number(),
-
-        name: Joi.string().min(3).required(),
+        name: req.body.name
     });
 
-    const new_course = {id: courses.length + 1,  name: 'database management systems'};
-    const {error} = schema.validate(new_course);
+    try{
+        
+        const new_course = await course.save();
+        return res.status(201).send(new_course)
+    } catch(err){
 
+        res.status(400).send({ message: err.message});
+    }
 
-    if (error) return res.send('Course name is required');
-
-    courses.push(new_course);  
-
-    return res.send(new_course);
 
 });
 
 //Update an existing course with a given id
 
-router.patch('/:id', (req, res) => {
+router.put('/:id', getCourse, async (req, res) => {
 
-    let { id } = req.params;
+    if(req.body.name != null){
 
-    if (!id) return res.send('Course with the given ID is not available');
+        req.course.name = req.body.name;
+
+        
+    }
+
+    try{
+
+        let updated_course = await res.course.save();
+
+        return res.status(201).send(updated_course)
+
+    }catch(err){
+
+        return res.status(400).send({message: err.message});
 
 
-    const course = courses.find(c => c.id === parseInt(id));
-
-    course.name = 'A new course';
-
-    return res.send(course);
+    }
 
 
-})
+
+
+});
 
 
 //Delete a course with a given id
 
-router.delete('/:id', (req, res) =>{
+router.delete('/:id', getCourse, async (req, res) =>{
 
-    let { id } = req.params;
+    try{
 
-    if (!id) return res.send('Course with the given ID does not exist');
+        await res.course.remove();
 
-    const course = courses.find(c => c.id === parseInt(id));
+        res.status(201).send({message: 'Deleted the course'});
 
-    const index = courses.indexOf(course);
+    }
+    catch(err){
 
-    if(!index) return res.send('Course with the given ID does not exist');
+        res.status(404).send({message: err.message});
 
-    
 
-    courses.splice(index,1);
+    }
 
-    res.send(course);
 
 
 });
+
+
+// Validating request parameters
+
+async function getCourse(req, res, next){
+
+    let course;
+
+    try{
+
+        course = await Course.findById(req.params.id);
+
+        if (!course){
+
+            return res.status(404).send({message: 'Course is not available'})
+        }
+
+
+    } catch(err){
+
+        return res.status(500).send({message: err.message})
+
+
+    }
+
+    res.course = course;
+
+    next();
+}
 
 module.exports = router;
 
