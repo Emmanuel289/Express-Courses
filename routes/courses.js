@@ -112,7 +112,7 @@ router.delete('/:id', getCourse, async (req, res) =>{
 });
 
 
-// Validating request parameters
+// Validating request parameters for get, delete, and put operations
 
 async function getCourse(req, res, next){
 
