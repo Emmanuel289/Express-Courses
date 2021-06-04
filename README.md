@@ -22,4 +22,5 @@ Express-Courses is a REST API service that enables client applications to intera
 
 ## Installation
 
--  
+-  Download the source code by running `git clone https://github.com/Emmanuel289/Express-Courses.git` within a terminal in your preferred directory.
+-   
