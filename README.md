@@ -1,5 +1,5 @@
 # Express-Courses
-An REST API service that enables client applications to perform CRUD operations on a database of courses that are available at an institution.
+An REST API service that enables client applications to perform create/read/update/delete (CRUD) operations on a database of courses that are available at an institution.
 
 ## Dependencies
 -[Node.js](https://nodejs.org/en): The Node.js distribution comes prepackaged with a Node Package Manager (NPM) client which is used to install required modules and    application dependencies.
