@@ -56,7 +56,7 @@ npm install express joi dotenv mongoose nodemon
 
 ### References
 
- - [Node.js](https://nodejs.org/en): Documentation for Node.js
+ - [Node.js](https://nodejs.org/en): Documentation for Node.js.
 
 - [Express](https://www.npmjs.com/package/express): Documentation, features, and examples of using Express in a web application.
 
