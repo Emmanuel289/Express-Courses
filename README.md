@@ -1,5 +1,5 @@
 ## Overview
-Express-Courses is a REST API service that enables client applications to interact with a database of courses that are available at an institution. Clients can perform CRUD operations using the standard HTTP methods including:
+Express-Courses is a REST API service that enables client applications to interact with a database of courses that are available at an institution. Clients can perform  create/read/update/delete (CRUD) operations on the courses database by using the standard HTTP methods such as:
 
 - Retrieving a list of all available courses.
 - Retrieving a course with a specific ID.
