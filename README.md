@@ -23,4 +23,24 @@ Express-Courses is a REST API service that enables client applications to intera
 ## Installation
 
 -  Download the source code by running `git clone https://github.com/Emmanuel289/Express-Courses.git` within a terminal in your preferred directory.
--   
+-  If you do not have Node installed on your machine, download the installer for the version of your operating system from https://nodejs.org/en/ and follow the instructions for installing Node and the NPM client. If you already have node installed on your machine, skip to the next step.
+-   To check the version of Node and NPM installed on your machine, run the following commands in a terminal:
+    ```
+    node -v
+    
+    npm -v
+    
+    ```
+- Replace the 'package.json' file that contains the details of the application and its dependencies by running `npm init` and following the command prompts. This command will also create a 'node_modules' folder which contains a list of modules that are required to run the application.
+
+- Install the application's dependencies (Express, Joi, Dotenv, etc.) by executing the following command in a terminal: 
+```
+npm install express joi dotenv mongoose nodemon
+
+```
+- If you don't have MongoDB installed on your machine, download the installer for the version of your operating system by following the instructions at https://www.mongodb.com/.
+- After installing MongoDB, ensure that the mongod service is running by following the instructions to start the service here https://docs.mongodb.com/manual/tutorial/manage-mongodb-processes/  
+
+- Confirm that the application is ready to start interacting with the database by executing `npm start` within the application's directory. You should get an output similar to the screenshot below:
+
+
