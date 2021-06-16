@@ -2,7 +2,7 @@ GET http://localhost:5000/courses
 
 ###
 
-GET http://localhost:5000/courses/60b7aa65cdc61c14386cf759
+GET http://localhost:5000/courses/60ca42ef223ed21d0ceb3d57
 
 ###
 
@@ -10,7 +10,7 @@ POST http://localhost:5000/courses
 Content-Type: application/json
 
 {
-    "name": "operating systems"
+    "name": "farmcommand guide"
 }
 
 ###
@@ -19,11 +19,15 @@ DELETE http://localhost:5000/courses/60b7aa65cdc61c14386cf759
 
 
 ###
-PUT http://localhost:5000/courses/60b7b9ab8e159b278431d7a8
+PUT http://localhost:5000/courses/60ca42ef223ed21d0ceb3d57
 
 Content-Type: application/json
 
 {
 
-    "name": "systems design"
+    "name": "farmcommand tool"
 }
+
+###
+
+DELETE http://localhost:5000/courses/60ca42ef223ed21d0ceb3d57
