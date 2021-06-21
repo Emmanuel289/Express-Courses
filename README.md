@@ -15,7 +15,7 @@ Express-Courses is a REST API service that enables client applications to intera
 
 - [Joi](https://www.npmjs.com/package/joi): Joi is a schema description language and validator for Javascript data.
 
-- [Dotenv](https://www.npmjs.com/package/dotenv): Dotenv is a module that loads environment variables from a .env file into process.env
+- [Dotenv](https://www.npmjs.com/package/dotenv): Dotenv is a module that loads environment variables from a .env file into a local or cloud environment.
 
 - [Mongoose](https://www.npmjs.com/package/mongoose): Mongoose is an object modeling tool for MongoDB databases.
 
