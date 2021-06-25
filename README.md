@@ -50,18 +50,7 @@ npm install express joi dotenv mongoose nodemon
 ![image](https://user-images.githubusercontent.com/6232188/120741742-8013b300-c4ed-11eb-8503-bf5837c01ddb.png)
 
 ### Performing CRUD operations on the database
- The 'course.js' file that is located inside the `models/` folder of the source code contains the schema for defining and composing a course into a document for storage in the database. The 'routes.rest' file contains a list of http methods that are used to send requests to the local server which then forwards the requests to the database. For example, the following request adds a new record to the data set
- 
- ``` POST http://localhost:8000/api/v0/forecasts 
-Content-Type: application/json
-
-{
-    "date_time_local": 2024,
-
-    "temperatures": "High 25"
-
-} ```
-
+ The 'course.js' file that is located inside the `models/` folder of the source code contains the schema for defining and composing a course into a document for storage in the database. 
 
 ### References
 
