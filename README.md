@@ -45,12 +45,12 @@ npm install express joi dotenv mongoose nodemon
 
 - After installing MongoDB, ensure that the 'mongod' service is running by following the instructions to start the service at https://docs.mongodb.com/manual/tutorial/manage-mongodb-processes/  
 
-- Confirm that the application is ready to start interacting with the database by executing `npm start` within the application's directory. You should get an output similar to the screenshot below:
+- Confirm that the application is ready to connect with the database by executing `npm start` within the application's directory. You should get an output similar to the screenshot below:
 
 ![image](https://user-images.githubusercontent.com/6232188/120741742-8013b300-c4ed-11eb-8503-bf5837c01ddb.png)
 
 ### Performing CRUD operations on the database
- The 'course.js' file that is located inside the `models/` folder of the source code contains the schema for defining and composing a course into a document for storage in the database. 
+ The `course.js` file that is located inside the `models/` folder of the source code contains the schema for defining and composing a course into a document for storage in the database. 
 
 ### References
 
