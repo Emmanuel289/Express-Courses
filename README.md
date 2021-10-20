@@ -23,7 +23,7 @@ Express-Courses is a REST API service that enables client applications to intera
 
 ## Installation
 
--  Download the source code for Express-Courses by running ```git clone https://github.com/Emmanuel289/Express-Courses.git``` within a terminal in a preferred directory on your local machine.
+-  Download the source code for Express-Courses by running ``` git clone https://github.com/Emmanuel289/Express-Courses.git ``` within a terminal in a preferred directory on your local machine.
 
 -  If you do not have Node installed on your machine, download the installer file for the version of your operating system from https://nodejs.org/en/ and follow the instructions for installing Node and the NPM client. If you already have Node installed on your machine, skip to the next step.
 
